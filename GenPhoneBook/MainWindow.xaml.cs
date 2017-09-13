@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
+using System.Xml;
 
 namespace GenPhoneBook
 {
@@ -24,5 +26,39 @@ namespace GenPhoneBook
         {
             InitializeComponent();
         }
+
+        public string FilePath { get; set; }
+        XmlDocument Xml = new XmlDocument();
+
+
+        private void OpenButtonClick(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFile = new OpenFileDialog();
+            openFile.Filter = "Файл книги(*.xml)|*.xml";
+            openFile.CheckFileExists = true;
+            if (openFile.ShowDialog() == true)
+            {
+                FilePath = openFile.FileName;
+                Path.Text = openFile.FileName;
+            }
+            Xml.Load(FilePath);
+        }
+
+        private void CreateButtonClick(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFile = new SaveFileDialog();
+            saveFile.Filter = "Файл книги(*.xml)|*.xml";
+            saveFile.CheckFileExists = true;
+            if (saveFile.ShowDialog() == true)
+            {
+                FilePath = saveFile.FileName;
+
+            }
+        }
+    }
+
+    class XmlSer
+    {
+
     }
 }
