@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
 using System.Xml;
+using System.IO;
 
 namespace GenPhoneBook
 {
@@ -29,7 +30,7 @@ namespace GenPhoneBook
 
         public string FilePath { get; set; }
         XmlDocument Xml = new XmlDocument();
-
+        XmlTextReader reader = null;
 
         private void OpenButtonClick(object sender, RoutedEventArgs e)
         {
@@ -41,7 +42,22 @@ namespace GenPhoneBook
                 FilePath = openFile.FileName;
                 Path.Text = openFile.FileName;
             }
-            Xml.Load(FilePath);
+            try
+            {
+                Xml.Load(FilePath);
+                XmlElement xRoot = Xml.DocumentElement;
+                foreach(XmlNode xNode in xRoot)
+                {
+                    if(xNode.Attributes.Count > 0)
+                    {
+
+                    }
+                }
+            }catch(Exception ex)
+            {
+
+            }
+
         }
 
         private void CreateButtonClick(object sender, RoutedEventArgs e)
@@ -59,6 +75,9 @@ namespace GenPhoneBook
 
     class XmlSer
     {
+        public void Write()
+        {
 
+        }
     }
 }
