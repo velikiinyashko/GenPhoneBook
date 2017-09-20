@@ -8,12 +8,12 @@ using System.Xml.Serialization;
 
 namespace GenPhoneBook
 {
-    [XmlRoot("CiscoIPPhoneDirectory")]
-    class PhoneBookModel
+    //[XmlRoot("CiscoIPPhoneDirectory")]
+    public class PhoneBookModel
     {
-        [XmlElement("Name")]
+        //[XmlElement("Name")]
         public string Name { get; set; }
-        [XmlElement("Telephone")]
+        //[XmlElement("Telephone")]
         public string Telephone { get; set; }
     }
 }

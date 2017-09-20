@@ -28,12 +28,11 @@ namespace GenPhoneBook
             InitializeComponent();
         }
 
-        public string FilePath { get; set; }
-        XmlDocument Xml = new XmlDocument();
-        XmlTextReader reader = null;
+        private string FilePath;
 
         private void OpenButtonClick(object sender, RoutedEventArgs e)
         {
+            
             OpenFileDialog openFile = new OpenFileDialog();
             openFile.Filter = "Файл книги(*.xml)|*.xml";
             openFile.CheckFileExists = true;
@@ -44,18 +43,11 @@ namespace GenPhoneBook
             }
             try
             {
-                Xml.Load(FilePath);
-                XmlElement xRoot = Xml.DocumentElement;
-                foreach(XmlNode xNode in xRoot)
-                {
-                    if(xNode.Attributes.Count > 0)
-                    {
-
-                    }
-                }
+                XmlContent content = new XmlContent(FilePath);
+                GridView.ItemsSource = content.XmlOpen();
             }catch(Exception ex)
             {
-
+                MessageBox.Show(ex.Message);
             }
 
         }
@@ -64,20 +56,81 @@ namespace GenPhoneBook
         {
             SaveFileDialog saveFile = new SaveFileDialog();
             saveFile.Filter = "Файл книги(*.xml)|*.xml";
-            saveFile.CheckFileExists = true;
+            saveFile.FileName = "Phone";
+            saveFile.DefaultExt = ".xml";
+
             if (saveFile.ShowDialog() == true)
             {
                 FilePath = saveFile.FileName;
-
+                try
+                {
+                    XmlContent content = new XmlContent(FilePath);
+                    content.XmlCreate(saveFile.SafeFileName);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
-    }
 
-    class XmlSer
-    {
-        public void Write()
+        private void SelectDataGridRow(object sender, MouseButtonEventArgs e)
         {
+            try
+            {
+                PhoneBookModel SelectItem = GridView.SelectedItem as PhoneBookModel;
+                NameText.Text = SelectItem.Name;
+                PhoneText.Text = SelectItem.Telephone;
+            }
+            catch(Exception ex)
+            {
+                //MessageBox.Show(ex.Message);
+            }
+        }
 
+        private void AddItemButtomClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                XmlContent content = new XmlContent(FilePath);
+                content.XmlAddItems(NameText.Text, PhoneText.Text);
+                GridView.ItemsSource = content.XmlOpen();
+                NameText.Text = null;
+                PhoneText.Text = null;
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void UpadeItemsButtomClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                XmlContent content = new XmlContent(FilePath);
+                content.XmlUpdateItems(NameText.Text, PhoneText.Text);
+                GridView.ItemsSource = content.XmlOpen();
+                NameText.Text = null;
+                PhoneText.Text = null;
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void RemoveItemsButtomClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                XmlContent content = new XmlContent(FilePath);
+                content.XmlRemoveItems(NameText.Text);
+                GridView.ItemsSource = content.XmlOpen();
+                NameText.Text = null;
+                PhoneText.Text = null;
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
