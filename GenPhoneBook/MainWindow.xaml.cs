@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using Microsoft.Win32;
 using System.Xml;
 using System.IO;
+using GenPhoneBook.Model;
 
 namespace GenPhoneBook
 {
@@ -80,7 +81,7 @@ namespace GenPhoneBook
             {
                 PhoneBookModel SelectItem = GridView.SelectedItem as PhoneBookModel;
                 NameText.Text = SelectItem.Name;
-                PhoneText.Text = SelectItem.Telephone;
+                PhoneText.Text = SelectItem.Phone;
             }
             catch(Exception ex)
             {

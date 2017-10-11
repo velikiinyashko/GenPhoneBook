@@ -54,6 +54,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ModelView\PhoneBookViewModel.cs" />
+    <Compile Include="ModelView\ViewModelBase.cs" />
+    <Compile Include="Model\PhoneBookModel.cs" />
+    <Compile Include="Model\XmlFormat.cs" />
+    <Compile Include="View\PhoneBookView.xaml.cs">
+      <DependentUpon>PhoneBookView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="XmlContent.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -67,6 +74,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\PhoneBookView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PhoneBookControl.cs" />
@@ -96,5 +107,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

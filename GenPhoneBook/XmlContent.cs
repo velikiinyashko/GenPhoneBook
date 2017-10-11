@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
+using GenPhoneBook.Model;
 
 namespace GenPhoneBook
 {
@@ -40,7 +41,7 @@ namespace GenPhoneBook
                         select new PhoneBookModel
                         {
                             Name = xe.Element("Name").Value,
-                            Telephone = xe.Element("Telephone").Value
+                            Phone = xe.Element("Telephone").Value
                         };
             return items;
         }

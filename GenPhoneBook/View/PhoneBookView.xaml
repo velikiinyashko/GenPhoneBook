@@ -1,0 +1,77 @@
+﻿<Window x:Class="GenPhoneBook.View.PhoneBookView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GenPhoneBook.View"
+        xmlns:VM="clr-namespace:GenPhoneBook.ModelView"
+        mc:Ignorable="d"
+        Title="Телефоная книга" Height="400" Width="500">
+    <Window.DataContext>
+        <VM:PhoneBookViewModel/>
+    </Window.DataContext>
+    <Grid Background="#086CA2">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" DataContext="{Binding SelectPhone}">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Имя" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="Рабочий" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="0" Grid.Column="2" Text="Мобильный" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="1" Grid.Column="0" Margin="5" Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Margin="5" Text="{Binding Phone, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Row="1" Grid.Column="2" Margin="5" Text="{Binding MobilePhone, UpdateSourceTrigger=PropertyChanged}"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ListView Grid.Column="0" ItemsSource="{Binding PhoneBook}" SelectedItem="{Binding SelectPhone}" Background="#64AAD0" Margin="5">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Имя" DisplayMemberBinding="{Binding Name}" Width="auto"/>
+                                <GridViewColumn Header="Рабочий" DisplayMemberBinding="{Binding Phone}" Width="auto"/>
+                                <GridViewColumn Header="Мобильный" DisplayMemberBinding="{Binding MobilePhone}" Width="auto"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Button Grid.Row="0" Margin="5" Content="Up" Background="#FF8B00"/>
+                        <Button Grid.Row="1" Margin="5" Content="Down" Background="#FF8B00"/>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" Margin="5" Content="Добавить" Command="{Binding AddPhone}" Background="#FF8B00"/>
+                    <Button Grid.Column="1" Margin="5" Content="Удалить" Background="#FF8B00"/>
+                    <Button Grid.Column="2" Margin="5" Content="Сохранить" Background="#FF8B00"/>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
